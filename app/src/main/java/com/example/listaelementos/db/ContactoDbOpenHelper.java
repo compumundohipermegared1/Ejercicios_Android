@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 public class ContactoDbOpenHelper extends SQLiteOpenHelper {
     public static String DATABASE_NAME = "agenda.db";
     public static int VERSION = 1;
+    String TAG = "openHelper";
 
     String CREATE_TABLE_CONTACTO =
             " CREATE TABLE contacto( " +
@@ -30,10 +31,10 @@ public class ContactoDbOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(@NonNull SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_CONTACTO);
-        Log.i("openHelper","se creó tabla contacto ");
+        Log.i(TAG,"se creó tabla contacto ");
 
         db.execSQL(INSERT_CONTACTO1);
-        Log.i("openHelper","Insertar contacto ");
+        Log.i(TAG,"Insertar contacto ");
     }
 
     @Override
