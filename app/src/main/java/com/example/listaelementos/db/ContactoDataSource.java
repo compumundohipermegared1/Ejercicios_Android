@@ -1,6 +1,7 @@
 package com.example.listaelementos.db;
 
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -32,7 +33,6 @@ public class ContactoDataSource {
         Log.i(TAG,"closeDB");
     }
 
-    @SuppressLint("Range")
     public List<Contacto> obtenerContactos(){
         List<Contacto> contactos = new ArrayList<>();
         String query = "SELECT * FROM contacto ";
@@ -43,15 +43,28 @@ public class ContactoDataSource {
             while(cursor.moveToNext()){
                 Contacto contacto = new Contacto();
 
-                contacto.setId(cursor.getLong(cursor.getColumnIndex("id")));
-                contacto.setNombre(cursor.getString(cursor.getColumnIndex("nombre")));
-                contacto.setPaterno(cursor.getString(cursor.getColumnIndex("apellido_P")));
-                contacto.setMaterno(cursor.getString(cursor.getColumnIndex("apellido_M")));
-                contacto.setTelefono(cursor.getString(cursor.getColumnIndex("telefono")));
+                contacto.setId(cursor.getLong(0));
+                contacto.setNombre(cursor.getString(1));
+                contacto.setPaterno(cursor.getString(2));
+                contacto.setMaterno(cursor.getString(3));
+                contacto.setTelefono(cursor.getString(4));
 
                 contactos.add(contacto);
             }
         }
         return contactos;
+    }
+
+    public Contacto insertarContacto(Contacto contacto){
+        ContentValues valores = new ContentValues();
+        valores.put("nombre",contacto.getNombre());
+        valores.put("apellido_p",contacto.getPaterno());
+        valores.put("apellido_m",contacto.getMaterno());
+        valores.put("telefono",contacto.getTelefono());
+
+        long insertId = db.insert("contacto", null, valores);
+        contacto.setId(insertId);
+
+        return contacto;
     }
 }
