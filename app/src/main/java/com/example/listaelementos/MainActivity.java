@@ -1,6 +1,7 @@
 package com.example.listaelementos;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -47,10 +48,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<Contacto> adapter = new ContactoAdapter(this, R.layout.contato_item, contactos);
 
         lvContactos setAdapter(adapter);
-
-        //TODO faltan cosas :C
+        lvContactos.setOnItemClickListener(this);
     }
 
+    //TODO no se que es esto
     private void startActivity(Intent intent) {
     }
 
@@ -89,5 +90,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

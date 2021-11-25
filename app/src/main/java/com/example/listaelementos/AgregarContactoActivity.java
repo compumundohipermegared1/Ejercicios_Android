@@ -5,20 +5,33 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.listaelementos.db.ContactoDataSource;
 import com.example.listaelementos.models.Contacto;
 
 public class AgregarContactoActivity extends AppCompatActivity {
 
+    EditText etNombre, etPaterno, etMaterno, etTelefono;
+    ContactoDataSource dataSource;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-       // setContentView(R.layout);
         setContentView(R.layout.activity_agregar_contacto);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        dataSource = new ContactoDataSource(this);
+
+
+        etNombre = findViewById(R.id.etNombre);
+        etPaterno = findViewById(R.id.etPaterno);
+        etMaterno = findViewById(R.id.etMaterno);
+        etTelefono = findViewById(R.id.etTelefono);
     }
 
     @Override
@@ -50,9 +63,9 @@ public class AgregarContactoActivity extends AppCompatActivity {
 
     public void guardarContacto(){
         String nombre = etNombre.getText().toString();
-        String paterno = etpaterno.getText().toString();
-        String materno = etmaterno.getText().toString();
-        String telefono = ettelefono.getText().toString();
+        String paterno = etPaterno.getText().toString();
+        String materno = etMaterno.getText().toString();
+        String telefono = etTelefono.getText().toString();
 
         if(crearContacto(nombre, paterno, materno, telefono) != -1){
             Toast.makeText(this, "contacto agregado", Toast.LENGTH_SHORT).show();

@@ -1,6 +1,5 @@
 package com.example.listaelementos.db;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -23,7 +22,7 @@ public class ContactoDataSource {
         dbhelper = new ContactoDbOpenHelper(context);
     }
 
-    public void setDb(SQLiteDatabase db){
+    public void openDB(){
         db = dbhelper.getWritableDatabase();
         Log.i(TAG,"openDB");
     }
