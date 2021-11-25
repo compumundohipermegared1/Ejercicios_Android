@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     protected void onCreate(Bundle savedInstanceState ){
-        super.onCreate(savedInstanceState):
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setTitle("Agenda");
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         ArrayAdapter<Contacto> adapter = new ContactoAdapter(this, R.layout.contato_item, contactos);
 
-        lvContactos setAdapter(adapter);
+        lvContactos.setAdapter(adapter);
         lvContactos.setOnItemClickListener(this);
     }
 
