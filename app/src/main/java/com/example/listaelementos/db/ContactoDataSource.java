@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.media.midi.MidiManager;
 import android.util.Log;
 
 import com.example.listaelementos.models.Contacto;
@@ -65,5 +66,11 @@ public class ContactoDataSource {
         contacto.setId(insertId);
 
         return contacto;
+    }
+
+    public Boolean eliminarContacto(Long id){
+        String where = "id = "+ id;
+        int result = db.delete("contacto", where, null);
+        return (result == 1);
     }
 }

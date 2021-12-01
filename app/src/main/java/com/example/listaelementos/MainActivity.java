@@ -6,15 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,9 +24,11 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     public static final int REQUEST_CODE_AGREGAR_CONTACTO = 1001;
+    public static final int REQUEST_CODE_DETALLE_ACTIVITY = 1002;
     ListView lvContactos;
     List<Contacto> contactos;
     ContactoDataSource dataSource;
+    ArrayAdapter<Contacto> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState ){
@@ -45,15 +44,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         contactos = dataSource.obtenerContactos();
         dataSource.closeDB();
 
-        ArrayAdapter<Contacto> adapter = new ContactoAdapter(this, R.layout.contato_item, contactos);
+        adapter = new ContactoAdapter(this, R.layout.contato_item, contactos);
 
         lvContactos.setAdapter(adapter);
         lvContactos.setOnItemClickListener(this);
     }
 
-    //TODO no se que es esto
-    private void startActivity(Intent intent) {
-    }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l){
@@ -66,14 +62,15 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         intent.putExtra("nombre", nombre);
         intent.putExtra("contacto", contacto);
 
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_DETALLE_ACTIVITY);
     }
 
-    @Override
+    /*@Override
     public boolean onCreateOptionMenu (Menu menu){
         getMenuInflater().inflate(R.menu.menu_main_activity, menu);
         return true;
     }
+    */
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item){
@@ -95,5 +92,23 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data){
         super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQUEST_CODE_AGREGAR_CONTACTO && resultCode == 1){
+
+            Log.i("MainActivity", "actualizar el listaview");
+            actualizarContacto();
+
+        }
+    }
+
+    public void actualizarContacto(){
+        dataSource.openDB();
+        contactos = dataSource.obtenerContactos();
+        dataSource.closeDB();
+
+        adapter.clear();
+        adapter.addAll(contactos);
+        adapter.notifyDataSetChanged();
+
     }
 }

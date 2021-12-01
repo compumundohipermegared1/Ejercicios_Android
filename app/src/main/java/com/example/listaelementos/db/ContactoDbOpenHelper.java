@@ -15,7 +15,7 @@ public class ContactoDbOpenHelper extends SQLiteOpenHelper {
 
     String CREATE_TABLE_CONTACTO =
             " CREATE TABLE contacto( " +
-            " id INT PRIMARY KEY autoincrement, " +
+            " id INTEGER PRIMARY KEY autoincrement, " +
             " nombre TEXT, " +
             " apellido_P TEXT, " +
             " apellido_M TEXT, " +

@@ -69,6 +69,8 @@ public class AgregarContactoActivity extends AppCompatActivity {
 
         if(crearContacto(nombre, paterno, materno, telefono) != -1){
             Toast.makeText(this, "contacto agregado", Toast.LENGTH_SHORT).show();
+            setResult(1);
+            finish();
         }
         else{
             Log.i("ContactActivity","error");

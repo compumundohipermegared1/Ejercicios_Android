@@ -6,14 +6,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.listaelementos.models.Contacto;
 
 public class DetalleActivity extends AppCompatActivity {
 
     TextView tvNombre, tvPaterno, tvMaterno, tvTelefono;
+    Long id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +45,28 @@ public class DetalleActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_detalle_activity, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         switch (id){
             case android.R.id.home:
                 finish();
+                break;
+            case R.id.action_eliminar:
+                Toast.makeText(this, "Eliminar", Toast.LENGTH_SHORT).show();
+                break;
             default:
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void eliminarContacto(){
+        //TODO id del contacto
     }
 }
